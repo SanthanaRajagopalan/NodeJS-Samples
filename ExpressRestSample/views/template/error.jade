@@ -1,6 +1,27 @@
-html
-  head 
-    title Error
-  body
-    h1 An error occurred!
-    block content
+doctype html
+html(lang="en")
+	head 
+		title Custom Pages Example
+		style(type='text/css').
+			body {
+				background-color: #fcfcfc;
+			}
+			
+			div {
+				width:99%;
+				position: absolute;
+				text-align: center;
+			}
+			p.header {
+				font-size: 2.5em;
+				text-transform: capitalize;
+				border-bottom: 1px solid #000;
+				display: inline-block;
+			}
+	body
+		div
+			p.header  Oops! Something went wrong 
+			p Refer 
+				a(href='/') Usage
+				span  and try again. If error persists, then the problem might be happening only for you. ^.^. Kidding.... Contact the.
+					a(href='mailto:santhana_rajagopalan@hotmail.com?subject=Rest Service not at all working') author.

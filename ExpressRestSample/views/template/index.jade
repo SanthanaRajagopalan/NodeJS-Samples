@@ -5,21 +5,38 @@ html(lang="en")
 		style(type='text/css').
 			body {
 				background-color: #fcfcfc;
-			}
-			
-			div {
+			}			
+			header {
 				width:99%;
-				position: absolute;
 				text-align: center;
 			}
 			h1 {
 				text-transform: capitalize;
 			}
-			p {
+			header p {
 				font-size: 1.2em;
-				text-transform: capitalize;
+			}	
+			footer {
+				border-top: 1px solid #000;
+			}
+			.container {
+				width: 960px;
+				margin: auto;
+			}
+			.italic {
+				font-style: italic
 			}
 	body
-		div
+		header
 			h1  Sample NodeJs Rest Web Service 
-			p The service is build using Express JS. The service can be used as a static file server
+			p.description A Sample Rest Service build using Express JS. 
+		div.container
+			p The Service serves HTML, JSON and XML response. This can be used for testing your html or mobile apps when you don't have your web service working or unable to access them, well this will only work if you already know what kind of response you are expecting.
+			div
+				span.italic Usage: 
+				ul
+					li Place the responses you need in the folder 'response'. 
+					li To access the response hit the URL: 'http://ip:port/getResponse/filename.extension'
+					
+			footer
+				p Created by Santhana Rajagopalan.
