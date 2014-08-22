@@ -1,0 +1,10 @@
+{
+  "name": "rest-express",
+  "description": "rest test app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.6.1",
+	"jade": "1.5"
+  }
+}
