@@ -7,7 +7,9 @@ var express = require('express'),
     dns = require('dns'),
     hostName = require('os').hostname(),
     htmlContent,
-	delay = 100;
+	delay = 1000,
+	bodyParser = require('body-parser'),
+	util = require('util');
 
 var app = express();
 
@@ -30,10 +32,22 @@ var enableCORS = function (req, res, next) {
  
 // enable CORS!
 app.use(enableCORS);
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
 
 function response(req, res) {
 	var fileName,
 		resourceName;
+		fs.writeFile("/tmp/sandylog", util.inspect(req) , 'utf-8', function(err) {
+		    if(err) {
+		        console.log(err);
+		    } else {
+		        console.log("The file was saved!");
+		    }
+		});
+
 	if (req.params.name) {
 		resourceName = req.params.name;
 		if (resourceName.indexOf(".html") > 0) {
@@ -65,6 +79,21 @@ function response(req, res) {
 
 }
 
+function postResponse(req, res) {
+	console.log("request header", res._headers, res._headerNames, req.headers, req.method);
+/*	fs.writeFile("/tmp/sandylog", util.inspect(req) , 'utf-8', function(err) {
+    if(err) {
+        console.log(err);
+    } else {
+        console.log("The file was saved!");
+    }
+});*/
+	if(req.body) {
+			res.header("200");
+			res.render('resp', { parameters: JSON.stringify(req.body), date: new Date()});
+	}
+}
+
 app.get('/', function(req, res){
 	res.status(200);
 	res.render('index');
@@ -76,6 +105,7 @@ app.get('/404', function(req, res){
 });
 
 app.get('/getResponse/:name', response);
+app.post('/postResponse', postResponse);
 
 // 404 route
 app.get('*', function(req, res){
@@ -85,6 +115,6 @@ res.render('404', { url: req.url });
 
 dns.lookup(hostName, function (err, addr, fam) {
 	var server = app.listen(9090, addr, function () {
-		console.log('App is running at URL http://%s:%s', server.address().address, server.address().port);
+		console.log('App is running at URL http://%s:%s', server.address().address, server.address().port,server.address(),hostName);
 	});
 });
