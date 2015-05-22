@@ -81,13 +81,6 @@ function response(req, res) {
 
 function postResponse(req, res) {
 	console.log("request header", res._headers, res._headerNames, req.headers, req.method);
-/*	fs.writeFile("/tmp/sandylog", util.inspect(req) , 'utf-8', function(err) {
-    if(err) {
-        console.log(err);
-    } else {
-        console.log("The file was saved!");
-    }
-});*/
 	if(req.body) {
 			res.header("200");
 			res.render('resp', { parameters: JSON.stringify(req.body), date: new Date()});
